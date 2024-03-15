@@ -177,24 +177,24 @@ containerSecurityContext:
   seccompProfile:
     type: "RuntimeDefault"
 ## Configures the ports Cyral Sidecar listens on
-## @param containerPorts.sidecar Array of all ports inside Cyral Sidecar container
+## @param containerPorts Map of all ports inside Cyral Sidecar container
 ##
 containerPorts:
-  sidecar:
-    - 3306 # mysql
-    - 27017 # mongodb
-    - 27018 # mongodb
-    - 27019 # mongodb
-    - 453 # s3
-    - 31010 # dremio
-    - 463 # dynamodb
-    - 5432 # pg
-    - 9996 # denodo
-    - 9999 # denodo
-    - 5439 # redshift
-    - 1433 # sqlserver
-    - 443 # snowflake
-    - 1521 # oracle
+  metrics: 9000
+  denodo0: 9996
+  denodo1: 9999
+  dremio: 31010
+  dynamodb: 463
+  sqlserver: 1433
+  mongodb: 27017
+  mongodb0: 27018
+  mongodb1: 27019
+  mysql: 3306
+  oracle: 1521
+  pg: 5432
+  redshift: 5439
+  s3: 453
+  snowflake: 443
 ## @param extraContainerPorts Array of additional container ports for the Cyral Sidecar container
 ## e.g:
 ## extraContainerPorts:
@@ -207,24 +207,24 @@ service:
   ## @param service.type Service type
   ##
   type: LoadBalancer
-  ## @param service.ports.sidecar Cyral Sidecar service ports
+  ## @param service.ports Map of Cyral Sidecar service ports``
   ##
   ports:
-    sidecar:
-      - 3306 # mysql
-      - 27017 # mongodb
-      - 27018 # mongodb
-      - 27019 # mongodb
-      - 453 # s3
-      - 31010 # dremio
-      - 463 # dynamodb
-      - 5432 # pg
-      - 9996 # denodo
-      - 9999 # denodo
-      - 5439 # redshift
-      - 1433 # sqlserver
-      - 443 # snowflake
-      - 1521 # oracle
+    metrics: 9000
+    denodo0: 9996
+    denodo1: 9999
+    dremio: 31010
+    dynamodb: 463
+    sqlserver: 1433
+    mongodb: 27017
+    mongodb0: 27018
+    mongodb1: 27019
+    mysql: 3306
+    oracle: 1521
+    pg: 5432
+    redshift: 5439
+    s3: 453
+    snowflake: 443
   ##
   ## @param service.nodePorts [object] Specify the nodePort(s) value(s) for the LoadBalancer and NodePort service types.
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
@@ -232,11 +232,24 @@ service:
   nodePorts:
     sidecar: []
   ## @param service.targetPort [object] Target port reference value for the Loadbalancer service types can be specified explicitly.
-  ## Listeners for the Loadbalancer can be custom mapped to the http or https service.
-  ## Example: Mapping the https listener to targetPort http [http: https]
+  ## Listeners for the Loadbalancer can be custom mapped to the any Cyral Sidecar service.
+  ## Example: Mapping the mysql listener to targetPort mysql [mysql: mysql]
   ##
   targetPort:
-    sidecar: sidecar
+    denodo0: denodo0
+    denodo1: denodo1
+    dremio: dremio
+    dynamodb: dynamodb
+    sqlserver: sqlserver
+    mongodb: mongodb
+    mongodb0: mongodb0
+    mongodb1: mongodb1
+    mysql: mysql
+    oracle: oracle
+    pg: pg
+    redshift: redshift
+    s3: s3
+    snowflake: snowflake
   ## @param service.clusterIP Cyral Sidecar service Cluster IP
   ## e.g.:
   ## clusterIP: None
