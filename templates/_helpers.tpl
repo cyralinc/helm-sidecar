@@ -22,3 +22,25 @@ Return the proper Docker Image Registry Secret Names
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Return true if a secret for Cyral Sidecar credentials should be created
+*/}}
+{{- define "cyral.createCredentialsSecret" -}}
+{{- if and (not .Values.cyral.credentials.existingSecret) .Values.cyral.credentials.clientId .Values.cyral.credentials.clientSecret -}}
+  {{- true -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Get Cyral Sidecar credentials secret
+*/}}
+{{- define "cyral.credentials.secretName" -}}
+{{- if (include "cyral.createCredentialsSecret" .) -}}
+    {{- printf "%s-credentials-secret" (include "common.names.fullname" .) -}}
+{{- else if not (empty .Values.cyral.credentials.existingSecret) -}}
+    {{- tpl .Values.cyral.credentials.existingSecret $ -}}
+{{- else -}}
+    {{- fail "cyral.credentials.clientId and cyral.credentials.clientSecret are required if cyral.credentials.existingSecret is empty." -}}
+{{- end -}}
+{{- end -}}

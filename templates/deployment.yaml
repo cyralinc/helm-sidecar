@@ -27,7 +27,9 @@ spec:
     spec:
       {{- include "cyral.imagePullSecrets" . | nindent 6 }}
       serviceAccountName: {{ template "cyral.serviceAccountName" . }}
+      {{- if .Values.podSecurityContext.enabled }}
       securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
+      {{- end }}
       {{- if .Values.nodeSelector }}
       nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
       {{- end }}
@@ -44,7 +46,6 @@ spec:
       {{- end }}
       volumes:
       containers:
-
         - name: cyral-sidecar
           image: {{ include "cyral.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
@@ -61,8 +62,38 @@ spec:
           lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
           {{- end }}
           env:
-            - name: FOO
-              value: {{ ternary "true" "false" .Values.image.debug | quote }}
+            - name: CYRAL_CONTROL_PLANE
+              value: {{ .Values.cyral.controlPlane | required "cyral.controlPlane is required." }}
+            - name: CYRAL_SIDECAR_ID
+              value: {{ .Values.cyral.sidecarId | required "cyral.controlPlane is required" }}
+            - name: CYRAL_SIDECAR_ENDPOINT
+              value: chamgeme.local
+            - name: CYRAL_SIDECAR_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "cyral.credentials.secretName" $ }}
+                  key: clientId
+            - name: CYRAL_SIDECAR_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "cyral.credentials.secretName" $ }}
+                  key: clientSecret
+            {{- if .Values.cyral.sidecar.snowflake.SSOLoginURL }}
+            - name: CYRAL_SSO_LOGIN_URL
+              value: {{ .Values.cyral.sidecar.snowflake.SSOLoginURL }}
+            {{- end }}
+            {{- if .Values.cyral.sidecar.snowflake.idpCertificate }}
+            - name: CYRAL_IDP_CERTIFICATE
+              value: "{{ .Values.cyral.sidecar.snowflake.idpCertificate }}"
+            {{- end }}
+            {{- if .Values.cyral.sidecar.snowflake.sidecarIdpCertificate }}
+            - name: CYRAL_SIDECAR_IDP_PUBLIC_CERT
+              value: "{{ .Values.cyral.sidecar.snowflake.sidecarIdpCertificate }}"
+            {{- end }}
+            {{- if .Values.cyral.sidecar.snowflake.sidecarIdpPrivateKey }}
+            - name: CYRAL_SIDECAR_IDP_PRIVATE_KEY
+              value: "{{ .Values.cyral.sidecar.snowflake.sidecarIdpPrivateKey }}"
+            {{- end }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
@@ -87,7 +118,6 @@ spec:
             {{- if .Values.extraContainerPorts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraContainerPorts "context" $) | nindent 12 }}
             {{- end }}
-          
           {{- if .Values.resources }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}

@@ -38,12 +38,12 @@ spec:
   loadBalancerClass: {{ .Values.service.loadBalancerClass }}
   {{- end }}
   ports:
-    {{- if .Values.containerPorts.http }}
-    - name: http
-      port: {{ .Values.service.ports.http }}
-      targetPort: {{ .Values.service.targetPort.http }}
-      {{- if and (or (eq .Values.service.type "NodePort") (eq .Values.service.type "LoadBalancer")) (not (empty .Values.service.nodePorts.http)) }}
-      nodePort: {{ .Values.service.nodePorts.http }}
+    {{- range $key, $value := .Values.containerPorts }}
+    - name: {{ $key }}
+      port: {{ $value }}
+      targetPort: {{ get $.Values.service.targetPort $key }}
+      {{- if and (or (eq $.Values.service.type "NodePort") (eq $.Values.service.type "LoadBalancer")) (not (empty (get $.Values.service.nodePorts $key))) }}
+      nodePort: {{ get $.Values.service.nodePorts $key }}
       {{- end }}
     {{- end }}
   {{- $podLabels := include "common.tplvalues.merge" ( dict "values" ( list .Values.podLabels .Values.commonLabels ) "context" . ) }}
