@@ -17,6 +17,27 @@ global:
   ##   - myRegistryKeySecretName
   ##
   imagePullSecrets: []
+## @section Common parameters
+##
+
+## @param kubeVersion Force target Kubernetes version (using Helm capabilities if not set)
+##
+kubeVersion: ""
+## @param nameOverride String to partially override common.names.fullname template with a string (will prepend the release name)
+##
+nameOverride: ""
+## @param fullnameOverride String to fully override common.names.fullname template with a string
+##
+fullnameOverride: ""
+## @param commonAnnotations Common annotations to add to all Cyral Sidecar resources (sub-charts are not considered). Evaluated as a template
+##
+commonAnnotations: {}
+## @param commonLabels Common labels to add to all Cyral Sidecar resources (sub-charts are not considered). Evaluated as a template
+##
+commonLabels: {}
+## @param clusterDomain Kubernetes cluster domain
+##
+clusterDomain: cluster.local
 ## @section Cyral Sidecar deployment parameters
 
 ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`
@@ -299,6 +320,7 @@ service:
 ## @param cyral.credentials.existingSecret Name of an existing Kubernetes secret containing client ID and client secret.
 ## @param cyral.credentials.clientId The client ID assigned to the sidecar. Optional - required only if existingSecret is not provided.
 ## @param cyral.credentials.clientSecret The client secret assigned to the sidecar. Optional - required only if existingSecret is not provided.
+## @param cyral.sidecar.dnsName Fully qualified domain name that will be used to access the Cyral Sidecar
 ## @param cyral.sidecar.certificates.tls.existingSecret Name of an existing Kubernetes secret containing a private key and a certificate to terminate TLS connections.
 ## @param cyral.sidecar.certificates.ca.existingSecret Name of an existing Kubernetes secret containing a private key and a certificate for the internal CA.
 ## @param cyral.sidecar.snowflake.SSOLoginURL The IdP SSO URL for the IdP being used with Snowflake.
@@ -313,6 +335,7 @@ cyral:
     clientId: ""
     clientSecret: ""
   sidecar:
+    dnsName: ""
     certificates:
       tls:
         existingSecret: ""

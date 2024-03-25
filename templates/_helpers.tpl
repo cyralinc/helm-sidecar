@@ -1,4 +1,9 @@
 {{/*
+Copyright Cyral, Inc.
+SPDX-License-Identifier: APACHE-2.0
+*/}}
+
+{{/*
 Return the proper Cyral Sidecar image name
 */}}
 {{- define "cyral.image" -}}
@@ -42,5 +47,38 @@ Get Cyral Sidecar credentials secret
     {{- tpl .Values.cyral.credentials.existingSecret $ -}}
 {{- else -}}
     {{- fail "cyral.credentials.clientId and cyral.credentials.clientSecret are required if cyral.credentials.existingSecret is empty." -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Get Cyral Sidecar TLS cert secret
+*/}}
+{{- define "cyral.certificates.tls.secretName" -}}
+{{- if not .Values.cyral.sidecar.certificates.tls.existingSecret -}}
+    {{- printf "%s-selfsigned-certificate" (include "common.names.fullname" .) -}}
+{{- else -}}
+    {{- tpl .Values.cyral.sidecar.certificates.tls.existingSecret $ -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Get Cyral Sidecar CA cert secret
+*/}}
+{{- define "cyral.certificates.ca.secretName" -}}
+{{- if not .Values.cyral.sidecar.certificates.ca.existingSecret -}}
+    {{- printf "%s-ca-certificate" (include "common.names.fullname" .) -}}
+{{- else -}}
+    {{- tpl .Values.cyral.sidecar.certificates.ca.existingSecret $ -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Get the DNS name to access Cyral Sidecar
+*/}}
+{{- define "cyral.dnsName" -}}
+{{- if .Values.cyral.sidecar.dnsName -}}
+    {{- tpl .Values.cyral.sidecar.dnsName $ -}}
+{{- else -}}
+    {{- include "common.names.fullname" . }}.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain -}}
 {{- end -}}
 {{- end -}}

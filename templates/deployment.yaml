@@ -67,7 +67,7 @@ spec:
             - name: CYRAL_SIDECAR_ID
               value: {{ .Values.cyral.sidecarId | required "cyral.controlPlane is required" }}
             - name: CYRAL_SIDECAR_ENDPOINT
-              value: chamgeme.local
+              value: {{ include "cyral.dnsName" $ }}
             - name: CYRAL_SIDECAR_CLIENT_ID
               valueFrom:
                 secretKeyRef:
@@ -78,6 +78,26 @@ spec:
                 secretKeyRef:
                   name: {{ include "cyral.credentials.secretName" $ }}
                   key: clientSecret
+            - name: CYRAL_CERTIFICATE_MANAGER_TLS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "cyral.certificates.tls.secretName" $ }}
+                  key: tls.key
+            - name: CYRAL_CERTIFICATE_MANAGER_TLS_CERT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "cyral.certificates.tls.secretName" $ }}
+                  key: tls.crt
+            - name: CYRAL_CERTIFICATE_MANAGER_CA_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "cyral.certificates.ca.secretName" $ }}
+                  key: tls.key
+            - name: CYRAL_CERTIFICATE_MANAGER_CA_CERT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "cyral.certificates.ca.secretName" $ }}
+                  key: tls.crt
             {{- if .Values.cyral.sidecar.snowflake.SSOLoginURL }}
             - name: CYRAL_SSO_LOGIN_URL
               value: {{ .Values.cyral.sidecar.snowflake.SSOLoginURL }}
@@ -107,13 +127,9 @@ spec:
                 name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsSecret "context" $) }}
             {{- end }}
           ports:
-            {{- if .Values.containerPorts.http }}
-            - name: http
-              containerPort: {{ .Values.containerPorts.http }}
-            {{- end }}
-            {{- if .Values.containerPorts.https }}
-            - name: https
-              containerPort: {{ .Values.containerPorts.https }}
+            {{- range $key, $value := .Values.containerPorts }}
+            - name: {{ $key }}
+              containerPort: {{ $value }}
             {{- end }}
             {{- if .Values.extraContainerPorts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraContainerPorts "context" $) | nindent 12 }}
