@@ -62,6 +62,10 @@ spec:
           lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
           {{- end }}
           env:
+            - naem: CYRAL_SIDECAR_DEPLOYMENT_METHOD
+              value: {{ .Values.cyral.deploymentProperties.deploymentType }}
+            - name: CYRAL_SIDECAR_CLOUD_PROVIDER
+              value: {{ .Values.cyral.deploymentProperties.cloud }}
             - name: CYRAL_CONTROL_PLANE
               value: {{ .Values.cyral.controlPlane | required "cyral.controlPlane is required." }}
             - name: CYRAL_SIDECAR_ID
