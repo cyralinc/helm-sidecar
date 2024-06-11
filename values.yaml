@@ -85,7 +85,7 @@ affinity: {}
 image:
   registry: public.ecr.aws
   repository: cyral/cyral-sidecar
-  tag: v4.12.2
+  tag: v4.13.9
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
