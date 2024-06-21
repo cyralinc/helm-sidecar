@@ -5,7 +5,7 @@
 ## TL;DR
 
 ```console
-helm install cyral-sidecar oci://cyralinc.docker.io/cyralcharts/cyral-sidecar
+helm install cyral-sidecar oci://public.ecr.aws/cyral/helm/sidecar
 ```
 
 ## Introduction
