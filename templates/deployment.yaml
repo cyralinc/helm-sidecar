@@ -69,7 +69,7 @@ spec:
             - name: CYRAL_CONTROL_PLANE
               value: {{ .Values.cyral.controlPlane | required "cyral.controlPlane is required." }}
             - name: CYRAL_SIDECAR_ID
-              value: {{ .Values.cyral.sidecarId | required "cyral.controlPlane is required" }}
+              value: {{ .Values.cyral.sidecarId | required "cyral.sidecarId is required" }}
             - name: CYRAL_SIDECAR_ENDPOINT
               value: {{ include "cyral.dnsName" $ }}
             - name: CYRAL_SIDECAR_CLIENT_ID
