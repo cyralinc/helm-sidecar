@@ -125,7 +125,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `service.annotations`                               | Service annotations                                                                                                              | `{}`             |
 | `service.externalTrafficPolicy`                     | Enable client source IP preservation                                                                                             | `Cluster`        |
 
-### Cyral Sidecar configuration parameters
+### Cyral configuration parameters
 
 | Name                                            | Description                                                                                                                                                                                    | Value             |
 | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
