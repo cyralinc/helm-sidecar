@@ -225,9 +225,9 @@ containerPorts:
   dremio: 31010
   dynamodb: 463
   sqlserver: 1433
-  mongodb: 27017
-  mongodb0: 27018
-  mongodb1: 27019
+  mongodb0: 27017
+  mongodb1: 27018
+  mongodb2: 27019
   mysql: 3306
   oracle: 1521
   pg: 5432
@@ -255,9 +255,9 @@ service:
     dremio: 31010
     dynamodb: 463
     sqlserver: 1433
-    mongodb: 27017
-    mongodb0: 27018
-    mongodb1: 27019
+    mongodb0: 27017
+    mongodb1: 27018
+    mongodb2: 27019
     mysql: 3306
     oracle: 1521
     pg: 5432
@@ -280,9 +280,9 @@ service:
     dremio: dremio
     dynamodb: dynamodb
     sqlserver: sqlserver
-    mongodb: mongodb
     mongodb0: mongodb0
     mongodb1: mongodb1
+    mongodb2: mongodb2
     mysql: mysql
     oracle: oracle
     pg: pg
