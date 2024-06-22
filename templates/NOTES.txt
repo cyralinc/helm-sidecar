@@ -1,7 +1,7 @@
 {{- /*
 Copyright Cyral, Inc.
 SPDX-License-Identifier: APACHE-2.0
-*/-}}
+*/ -}}
 
 CHART NAME: {{ .Chart.Name }}
 CHART VERSION: {{ .Chart.Version }}
