@@ -17,6 +17,13 @@ rules:
   - apiGroups:
       - ""
     resources:
+      - "secrets"
+    verbs:
+      - "get"
+      - "watch"
+  - apiGroups:
+      - ""
+    resources:
       - "services"
     verbs:
       - "get"
