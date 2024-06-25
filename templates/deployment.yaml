@@ -3,7 +3,7 @@ Copyright Cyral, Inc.
 SPDX-License-Identifier: APACHE-2.0
 */}}
 
-apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "common.names.fullname" . }}
