@@ -341,7 +341,7 @@ cyral:
   ## Cyral credentials
   ##
   credentials:
-    ## @param cyral.credentials.existingSecret Name of an existing Kubernetes secret containing client ID and client secret.
+    ## @param cyral.credentials.existingSecret Name of an existing Kubernetes secret containing client ID and client secret. The secret must contain the `clientId` and `clientSecret` keys.
     existingSecret: ""
     ## @param cyral.credentials.clientId The client ID assigned to the sidecar. Optional - required only if existingSecret is not provided.
     clientId: ""

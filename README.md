@@ -63,24 +63,24 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Cyral Sidecar deployment parameters
 
-| Name                        | Description                                                                                                   | Value                     |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------- |
-| `podAntiAffinityPreset`     | Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                      | `hard`                    |
-| `podAffinityPreset`         | Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                           | `""`                      |
-| `nodeAffinityPreset.type`   | Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                     | `""`                      |
-| `nodeAffinityPreset.key`    | Node label key to match Ignored if `affinity` is set.                                                         | `""`                      |
-| `nodeAffinityPreset.values` | Node label values to match. Ignored if `affinity` is set.                                                     | `[]`                      |
-| `affinity`                  | Affinity for pod assignment                                                                                   | `{}`                      |
-| `image.registry`            | Cyral Sidecar image registry                                                                                  | `REGISTRY_NAME`           |
-| `image.repository`          | Cyral Sidecar image repository                                                                                | `REPOSITORY_NAME/sidecar` |
-| `image.digest`              | Cyral Sidecar image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag | `""`                      |
-| `image.pullPolicy`          | Cyral Sidecar image pull policy                                                                               | `IfNotPresent`            |
-| `image.pullSecrets`         | Cyral Sidecar image pull secrets                                                                              | `[]`                      |
-| `image.debug`               | Enable image debug mode                                                                                       | `false`                   |
-| `replicaCount`              | Number of Cyral Sidecar replicas to deploy                                                                    | `1`                       |
-| `extraEnvVars`              | Extra environment variables to be set on Cyral Sidecar containers                                             | `[]`                      |
-| `extraEnvVarsCM`            | ConfigMap with extra environment variables                                                                    | `""`                      |
-| `extraEnvVarsSecret`        | Secret with extra environment variables                                                                       | `""`                      |
+| Name                        | Description                                                                                                   | Value                  |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| `podAntiAffinityPreset`     | Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                      | `hard`                 |
+| `podAffinityPreset`         | Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                           | `""`                   |
+| `nodeAffinityPreset.type`   | Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                     | `""`                   |
+| `nodeAffinityPreset.key`    | Node label key to match Ignored if `affinity` is set.                                                         | `""`                   |
+| `nodeAffinityPreset.values` | Node label values to match. Ignored if `affinity` is set.                                                     | `[]`                   |
+| `affinity`                  | Affinity for pod assignment                                                                                   | `{}`                   |
+| `image.registry`            | Cyral Sidecar image registry                                                                                  | `public.ecr.aws/cyral` |
+| `image.repository`          | Cyral Sidecar image repository                                                                                | `cyral-sidecar`        |
+| `image.digest`              | Cyral Sidecar image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag | `""`                   |
+| `image.pullPolicy`          | Cyral Sidecar image pull policy                                                                               | `IfNotPresent`         |
+| `image.pullSecrets`         | Cyral Sidecar image pull secrets                                                                              | `[]`                   |
+| `image.debug`               | Enable image debug mode                                                                                       | `false`                |
+| `replicaCount`              | Number of Cyral Sidecar replicas to deploy                                                                    | `1`                    |
+| `extraEnvVars`              | Extra environment variables to be set on Cyral Sidecar containers                                             | `[]`                   |
+| `extraEnvVarsCM`            | ConfigMap with extra environment variables                                                                    | `""`                   |
+| `extraEnvVarsSecret`        | Secret with extra environment variables                                                                       | `""`                   |
 
 ### Cyral Sidecar deployment parameters
 
@@ -131,7 +131,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
 | `cyral.sidecarId`                               | Sidecar identifier                                                                                                                                                                             | `""`              |
 | `cyral.controlPlane`                            | Address of the control plane - <tenant>.cyral.com                                                                                                                                              | `""`              |
-| `cyral.credentials.existingSecret`              | Name of an existing Kubernetes secret containing client ID and client secret.                                                                                                                  | `""`              |
+| `cyral.credentials.existingSecret`              | Name of an existing Kubernetes secret containing client ID and client secret. The secret must contain the `clientId` and `clientSecret` keys.                                                  | `""`              |
 | `cyral.credentials.clientId`                    | The client ID assigned to the sidecar. Optional - required only if existingSecret is not provided.                                                                                             | `""`              |
 | `cyral.credentials.clientSecret`                | The client secret assigned to the sidecar. Optional - required only if existingSecret is not provided.                                                                                         | `""`              |
 | `cyral.sidecar.dnsName`                         | Fully qualified domain name that will be used to access the Cyral Sidecar                                                                                                                      | `""`              |
