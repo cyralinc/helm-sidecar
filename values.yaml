@@ -74,8 +74,8 @@ nodeAffinityPreset:
 affinity: {}
 ## Cyral Sidecar image
 ## ref: https://hub.docker.com/r/cyral/sidecar/tags/
-## @param image.registry [default: REGISTRY_NAME] Cyral Sidecar image registry
-## @param image.repository [default: REPOSITORY_NAME/sidecar] Cyral Sidecar image repository
+## @param image.registry [default: public.ecr.aws/cyral] Cyral Sidecar image registry
+## @param image.repository [default: cyral-sidecar] Cyral Sidecar image repository
 ## @skip image.tag Cyral Sidecar image tag (immutable tags are recommended)
 ## @param image.digest Cyral Sidecar image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
 ## @param image.pullPolicy Cyral Sidecar image pull policy
@@ -83,8 +83,8 @@ affinity: {}
 ## @param image.debug Enable image debug mode
 ##
 image:
-  registry: public.ecr.aws
-  repository: cyral/cyral-sidecar
+  registry: public.ecr.aws/cyral
+  repository: cyral-sidecar
   tag: v4.13.9
   digest: ""
   ## Specify a imagePullPolicy
