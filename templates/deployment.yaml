@@ -102,22 +102,14 @@ spec:
                 secretKeyRef:
                   name: {{ include "cyral.certificates.ca.secretName" $ }}
                   key: tls.crt
-            {{- if .Values.cyral.sidecar.snowflake.SSOLoginURL }}
             - name: CYRAL_SSO_LOGIN_URL
-              value: {{ .Values.cyral.sidecar.snowflake.SSOLoginURL }}
-            {{- end }}
-            {{- if .Values.cyral.sidecar.snowflake.idpCertificate }}
+              value: {{ .Values.cyral.sidecar.snowflake.SSOLoginURL | default "" }}
             - name: CYRAL_IDP_CERTIFICATE
-              value: "{{ .Values.cyral.sidecar.snowflake.idpCertificate }}"
-            {{- end }}
-            {{- if .Values.cyral.sidecar.snowflake.sidecarIdpCertificate }}
+              value: {{ .Values.cyral.sidecar.snowflake.idpCertificate | default "" }}
             - name: CYRAL_SIDECAR_IDP_PUBLIC_CERT
-              value: "{{ .Values.cyral.sidecar.snowflake.sidecarIdpCertificate }}"
-            {{- end }}
-            {{- if .Values.cyral.sidecar.snowflake.sidecarIdpPrivateKey }}
+              value: {{ .Values.cyral.sidecar.snowflake.sidecarIdpCertificate | default "" }}
             - name: CYRAL_SIDECAR_IDP_PRIVATE_KEY
-              value: "{{ .Values.cyral.sidecar.snowflake.sidecarIdpPrivateKey }}"
-            {{- end }}
+              value: {{ .Values.cyral.sidecar.snowflake.sidecarIdpPrivateKey | default "" }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
