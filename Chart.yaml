@@ -14,7 +14,7 @@ keywords:
 maintainers:
 - name: Cyral, Inc.
   url: https://github.com/cyralinc/helm-sidecar
-name: cyral-sidecar
+name: sidecar
 sources:
 - https://github.com/cyralinc/helm-sidecar
 version: 4.13.9
