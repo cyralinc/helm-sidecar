@@ -31,7 +31,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
           REGISTRY_ALIAS: cyral/helm
-          REPOSITORY: sidecar
+          REPOSITORY: cyral-sidecar
         run: |
           VERSION="${GITHUB_REF_NAME}"
           echo "setting version to $VERSION"
