@@ -158,7 +158,7 @@ serviceAccount:
   annotations: {}
   ## @param serviceAccount.automountServiceAccountToken Auto-mount the service account token in the pod
   ##
-  automountServiceAccountToken: false
+  automountServiceAccountToken: true
 ## Role Based Access
 ## Ref: https://kubernetes.io/docs/admin/authorization/rbac/
 ## @param rbac.create Create Role and RoleBinding

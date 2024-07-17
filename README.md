@@ -93,7 +93,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `serviceAccount.create`                             | Enable creation of ServiceAccount for Cyral Sidecar pod                                                                          | `true`           |
 | `serviceAccount.name`                               | The name of the ServiceAccount to use.                                                                                           | `""`             |
 | `serviceAccount.annotations`                        | Annotations for service account. Evaluated as a template.                                                                        | `{}`             |
-| `serviceAccount.automountServiceAccountToken`       | Auto-mount the service account token in the pod                                                                                  | `false`          |
+| `serviceAccount.automountServiceAccountToken`       | Auto-mount the service account token in the pod                                                                                  | `true`           |
 | `rbac.create`                                       | Create Role and RoleBinding                                                                                                      | `true`           |
 | `rbac.rules`                                        | Custom RBAC rules to set                                                                                                         | `[]`             |
 | `podSecurityContext.enabled`                        | Enabled Cyral Sidecar pods' Security Context                                                                                     | `false`          |
