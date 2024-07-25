@@ -211,10 +211,10 @@ containerSecurityContext:
   privileged: false
   readOnlyRootFilesystem: false
   allowPrivilegeEscalation: true
-  seccompProfile:
-    type: "RuntimeDefault"
   capabilities:
     drop: []
+  seccompProfile:
+    type: "RuntimeDefault"
 ## Configures the ports Cyral Sidecar listens on
 ## @param containerPorts [object] Map of all ports inside Cyral Sidecar container
 ##
