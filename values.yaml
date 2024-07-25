@@ -205,11 +205,16 @@ podSecurityContext:
 ##
 containerSecurityContext:
   enabled: true
+  seLinuxOptions: null
   runAsUser: 65534
   runAsNonRoot: true
+  privileged: false
   readOnlyRootFilesystem: false
+  allowPrivilegeEscalation: true
   seccompProfile:
     type: "RuntimeDefault"
+  capabilities:
+    drop: []
 ## Configures the ports Cyral Sidecar listens on
 ## @param containerPorts [object] Map of all ports inside Cyral Sidecar container
 ##
