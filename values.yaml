@@ -186,7 +186,7 @@ rbac:
 ## @param podSecurityContext.fsGroup Set Cyral Sidecar pod's Security Context fsGroup
 ##
 podSecurityContext:
-  enabled: false
+  enabled: true
   fsGroupChangePolicy: Always
   sysctls:
     - name: net.ipv4.ip_unprivileged_port_start
@@ -212,7 +212,7 @@ containerSecurityContext:
   runAsNonRoot: true
   privileged: false
   readOnlyRootFilesystem: false
-  allowPrivilegeEscalation: true
+  allowPrivilegeEscalation: false
   capabilities:
     drop: []
   seccompProfile:
