@@ -96,7 +96,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `serviceAccount.automountServiceAccountToken`       | Auto-mount the service account token in the pod                                                                                  | `true`           |
 | `rbac.create`                                       | Create Role and RoleBinding                                                                                                      | `true`           |
 | `rbac.rules`                                        | Custom RBAC rules to set                                                                                                         | `[]`             |
-| `podSecurityContext.enabled`                        | Enabled Cyral Sidecar pods' Security Context                                                                                     | `false`          |
+| `podSecurityContext.enabled`                        | Enabled Cyral Sidecar pods' Security Context                                                                                     | `true`           |
 | `podSecurityContext.fsGroupChangePolicy`            | Set filesystem group change policy                                                                                               | `Always`         |
 | `podSecurityContext.sysctls`                        | Set kernel settings using the sysctl interface                                                                                   | `[]`             |
 | `podSecurityContext.supplementalGroups`             | Set filesystem extra groups                                                                                                      | `[]`             |
@@ -107,8 +107,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | `containerSecurityContext.runAsNonRoot`             | Set container's Security Context runAsNonRoot                                                                                    | `true`           |
 | `containerSecurityContext.privileged`               | Set container's Security Context privileged                                                                                      | `false`          |
 | `containerSecurityContext.readOnlyRootFilesystem`   | Set container's Security Context readOnlyRootFilesystem                                                                          | `false`          |
-| `containerSecurityContext.allowPrivilegeEscalation` | Set container's Security Context allowPrivilegeEscalation                                                                        | `true`           |
-| `containerSecurityContext.capabilities.drop`        | List of capabilities to be dropped                                                                                               | `[]`             |
+| `containerSecurityContext.allowPrivilegeEscalation` | Set container's Security Context allowPrivilegeEscalation                                                                        | `false`          |
 | `containerSecurityContext.seccompProfile.type`      | Set container's Security Context seccomp profile                                                                                 | `RuntimeDefault` |
 | `containerPorts`                                    | Map of all ports inside Cyral Sidecar container                                                                                  | `{}`             |
 | `extraContainerPorts`                               | Array of additional container ports for the Cyral Sidecar container                                                              | `[]`             |
