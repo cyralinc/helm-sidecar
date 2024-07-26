@@ -45,6 +45,38 @@ spec:
       tolerations: {{- include "common.tplvalues.render" (dict "value" .Values.tolerations "context" $) | nindent 8 }}
       {{- end }}
       volumes:
+        - name: cyral-sidecar-supervisor
+          emptyDir: {}
+        - name: cyral-sidecar-fluentbit
+          emptyDir: {}
+        - name: cyral-sidecar-openresty
+          emptyDir: {}
+        - name: cyral-sidecar-openresty-local
+          emptyDir: {}
+        - name: cyral-sidecar-nginx
+          emptyDir: {}
+        - name: cyral-sidecar-ca-bundles
+          emptyDir: {}
+      initContainers:
+        - name: init-sidecar
+          image: {{ include "cyral.image" . }}
+          volumeMounts:
+            - name: cyral-sidecar-supervisor
+              mountPath: /supervisor-temp
+            - name: cyral-sidecar-fluentbit
+              mountPath: /fluentbit-temp
+            - name: cyral-sidecar-openresty-local
+              mountPath: /openresty-temp
+            - name: cyral-sidecar-nginx
+              mountPath: /nginx-temp
+          command:
+            - "sh"
+            - "-c"
+            - |
+              cp -R /etc/supervisor/. /supervisor-temp &&
+              cp -R /etc/fluent-bit/. /fluentbit-temp &&
+              cp -R /usr/local/openresty/. /openresty-temp &&
+              cp -R /etc/nginx/. /nginx-temp
       containers:
         - name: cyral-sidecar
           image: {{ include "cyral.image" . }}
@@ -134,6 +166,18 @@ spec:
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
           volumeMounts:
+            - name: cyral-sidecar-supervisor
+              mountPath: /etc/supervisor
+            - name: cyral-sidecar-fluentbit
+              mountPath: /etc/fluent-bit
+            - name: cyral-sidecar-openresty
+              mountPath: /var/run/openresty
+            - name: cyral-sidecar-openresty-local
+              mountPath: /usr/local/openresty
+            - name: cyral-sidecar-nginx
+              mountPath: /etc/nginx
+            - name: cyral-sidecar-ca-bundles
+              mountPath: /etc/cyral/cyral-certificate-manager/bundles
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}

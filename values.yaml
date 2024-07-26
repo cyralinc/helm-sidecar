@@ -181,14 +181,16 @@ rbac:
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podSecurityContext.enabled Enabled Cyral Sidecar pods' Security Context
 ## @param podSecurityContext.fsGroupChangePolicy Set filesystem group change policy
-## @param podSecurityContext.sysctls Set kernel settings using the sysctl interface
+## @param podSecurityContext.sysctls [array] Set kernel settings using the sysctl interface
 ## @param podSecurityContext.supplementalGroups Set filesystem extra groups
 ## @param podSecurityContext.fsGroup Set Cyral Sidecar pod's Security Context fsGroup
 ##
 podSecurityContext:
-  enabled: false
+  enabled: true
   fsGroupChangePolicy: Always
-  sysctls: []
+  sysctls:
+    - name: net.ipv4.ip_unprivileged_port_start
+      value: "0"
   supplementalGroups: []
   fsGroup: 1001
 ## Cyral Sidecar containers' Security Context.
@@ -200,19 +202,16 @@ podSecurityContext:
 ## @param containerSecurityContext.privileged Set container's Security Context privileged
 ## @param containerSecurityContext.readOnlyRootFilesystem Set container's Security Context readOnlyRootFilesystem
 ## @param containerSecurityContext.allowPrivilegeEscalation Set container's Security Context allowPrivilegeEscalation
-## @param containerSecurityContext.capabilities.drop List of capabilities to be dropped
 ## @param containerSecurityContext.seccompProfile.type Set container's Security Context seccomp profile
 ##
 containerSecurityContext:
-  enabled: false
+  enabled: true
   seLinuxOptions: null
-  runAsUser: 1001
+  runAsUser: 65534
   runAsNonRoot: true
   privileged: false
   readOnlyRootFilesystem: false
   allowPrivilegeEscalation: false
-  capabilities:
-    drop: ["ALL"]
   seccompProfile:
     type: "RuntimeDefault"
 ## Configures the ports Cyral Sidecar listens on
