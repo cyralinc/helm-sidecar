@@ -41,6 +41,13 @@ helm delete cyral-sidecar
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
+## Advanced Configuration
+
+Instructions for advanced deployment configurations are available for the 
+following topics:
+
+* [Memory limits](docs/memlim.md)
+
 ## Parameters
 
 ### Global parameters
