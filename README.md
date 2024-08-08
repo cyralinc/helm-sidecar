@@ -130,6 +130,23 @@ following topics:
 | `service.sessionAffinityConfig`                     | Additional settings for the sessionAffinity                                                                                      | `{}`             |
 | `service.annotations`                               | Service annotations                                                                                                              | `{}`             |
 | `service.externalTrafficPolicy`                     | Enable client source IP preservation                                                                                             | `Cluster`        |
+| `metrics.enabled`                                   | Enable exposing Cyral Sidecar metrics to be gathered by Prometheus                                                               | `false`          |
+| `metrics.podAnnotations`                            | Annotations for enabling prometheus to access the metrics endpoint                                                               | `{}`             |
+| `metrics.serviceMonitor.enabled`                    | Create ServiceMonitor Resource for scraping metrics using PrometheusOperator                                                     | `false`          |
+| `metrics.serviceMonitor.namespace`                  | Specify the namespace in which the serviceMonitor resource will be created                                                       | `""`             |
+| `metrics.serviceMonitor.interval`                   | Specify the interval at which metrics should be scraped                                                                          | `30s`            |
+| `metrics.serviceMonitor.scrapeTimeout`              | Specify the timeout after which the scrape is ended                                                                              | `""`             |
+| `metrics.serviceMonitor.jobLabel`                   | The name of the label on the target service to use as the job name in prometheus.                                                | `""`             |
+| `metrics.serviceMonitor.relabelings`                | RelabelConfigs to apply to samples before scraping.                                                                              | `[]`             |
+| `metrics.serviceMonitor.metricRelabelings`          | MetricsRelabelConfigs to apply to samples before ingestion.                                                                      | `[]`             |
+| `metrics.serviceMonitor.honorLabels`                | honorLabels chooses the metric's labels on collisions with target labels                                                         | `false`          |
+| `metrics.serviceMonitor.targetLabels`               | Used to keep given service's labels in target                                                                                    | `{}`             |
+| `metrics.serviceMonitor.podTargetLabels`            | Used to keep given pod's labels in target                                                                                        | `{}`             |
+| `metrics.serviceMonitor.path`                       | Define the path used by ServiceMonitor to scrap metrics                                                                          | `""`             |
+| `metrics.serviceMonitor.params`                     | Define the HTTP URL parameters used by ServiceMonitor                                                                            | `{}`             |
+| `metrics.serviceMonitor.selector`                   | ServiceMonitor selector labels                                                                                                   | `{}`             |
+| `metrics.serviceMonitor.labels`                     | Extra labels for the ServiceMonitor                                                                                              | `{}`             |
+| `metrics.serviceMonitor.annotations`                | Extra annotations for the ServiceMonitor                                                                                         | `{}`             |
 
 ### Cyral configuration parameters
 
