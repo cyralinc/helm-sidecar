@@ -4,7 +4,6 @@
 annotations:
   licenses: Apache-2.0
 apiVersion: v2
-appVersion: 4.13.9
 description: Cyral Sidecar.
 home: https://cyral.com
 keywords:
@@ -17,4 +16,4 @@ maintainers:
 name: sidecar
 sources:
 - https://github.com/cyralinc/helm-sidecar
-version: 4.13.9
+version: 1.2.0

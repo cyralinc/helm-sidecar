@@ -7,6 +7,9 @@ SPDX-License-Identifier: APACHE-2.0
 Return the proper Cyral Sidecar image name
 */}}
 {{- define "cyral.image" -}}
+{{- if not .Values.image.tag -}}
+    {{- fail "image.tag (e.g., sidecar version) is required" -}}
+{{- end -}}
 {{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) }}
 {{- end -}}
 
