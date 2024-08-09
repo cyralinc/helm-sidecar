@@ -80,6 +80,7 @@ following topics:
 | `affinity`                  | Affinity for pod assignment                                                                                   | `{}`                   |
 | `image.registry`            | Cyral Sidecar image registry                                                                                  | `public.ecr.aws/cyral` |
 | `image.repository`          | Cyral Sidecar image repository                                                                                | `cyral-sidecar`        |
+| `image.tag`                 | Cyral Sidecar image tag (required, usually this is the sidecar version)                                       | `""`                   |
 | `image.digest`              | Cyral Sidecar image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag | `""`                   |
 | `image.pullPolicy`          | Cyral Sidecar image pull policy                                                                               | `IfNotPresent`         |
 | `image.pullSecrets`         | Cyral Sidecar image pull secrets                                                                              | `[]`                   |

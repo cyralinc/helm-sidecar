@@ -76,7 +76,7 @@ affinity: {}
 ## ref: https://hub.docker.com/r/cyral/sidecar/tags/
 ## @param image.registry [default: public.ecr.aws/cyral] Cyral Sidecar image registry
 ## @param image.repository [default: cyral-sidecar] Cyral Sidecar image repository
-## @skip image.tag Cyral Sidecar image tag (immutable tags are recommended)
+## @param image.tag Cyral Sidecar image tag (required, usually this is the sidecar version)
 ## @param image.digest Cyral Sidecar image digest in the way sha256:aa.... Please note this parameter, if set, will override the tag
 ## @param image.pullPolicy Cyral Sidecar image pull policy
 ## @param image.pullSecrets Cyral Sidecar image pull secrets
@@ -85,7 +85,7 @@ affinity: {}
 image:
   registry: public.ecr.aws/cyral
   repository: cyral-sidecar
-  tag: v4.13.9
+  tag: ""
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
