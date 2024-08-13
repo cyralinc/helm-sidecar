@@ -58,6 +58,7 @@ following topics:
 | `cyral.controlPlane`             | Address of the control plane - <tenant>.cyral.com                                                      | `""`  |
 | `cyral.credentials.clientId`     | The client ID assigned to the sidecar. Optional - required only if existingSecret is not provided.     | `""`  |
 | `cyral.credentials.clientSecret` | The client secret assigned to the sidecar. Optional - required only if existingSecret is not provided. | `""`  |
+| `image.tag`                      | Cyral Sidecar image tag (this is the sidecar version)                                                  | `""`  |
 
 ### Certificates configuration
 
@@ -130,7 +131,6 @@ following topics:
 | `image.pullSecrets` | Cyral Sidecar image pull secrets                                                                              | `[]`                   |
 | `image.registry`    | Cyral Sidecar image registry                                                                                  | `public.ecr.aws/cyral` |
 | `image.repository`  | Cyral Sidecar image repository                                                                                | `cyral-sidecar`        |
-| `image.tag`         | Cyral Sidecar image tag (required, usually this is the sidecar version)                                       | `""`                   |
 
 ### Ports configuration
 

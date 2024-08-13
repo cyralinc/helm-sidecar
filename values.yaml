@@ -6,6 +6,7 @@
 ## @param cyral.controlPlane Address of the control plane - <tenant>.cyral.com
 ## @param cyral.credentials.clientId The client ID assigned to the sidecar. Optional - required only if existingSecret is not provided.
 ## @param cyral.credentials.clientSecret The client secret assigned to the sidecar. Optional - required only if existingSecret is not provided.
+## @param image.tag Cyral Sidecar image tag (this is the sidecar version)
 
 ## @section Certificates configuration
 ## @param cyral.sidecar.certificates.ca.existingSecret Name of an existing Kubernetes secret containing a private key and a certificate for the internal CA.
@@ -57,7 +58,6 @@
 ## @param image.pullSecrets Cyral Sidecar image pull secrets
 ## @param image.registry [default: public.ecr.aws/cyral] Cyral Sidecar image registry
 ## @param image.repository [default: cyral-sidecar] Cyral Sidecar image repository
-## @param image.tag Cyral Sidecar image tag (required, usually this is the sidecar version)
 
 ## @section Ports configuration
 ## @param containerPorts [object] Map of all ports inside Cyral Sidecar container
