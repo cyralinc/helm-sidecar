@@ -60,6 +60,7 @@ spec:
       initContainers:
         - name: init-sidecar
           image: {{ include "cyral.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           volumeMounts:
             - name: cyral-sidecar-supervisor
               mountPath: /supervisor-temp
