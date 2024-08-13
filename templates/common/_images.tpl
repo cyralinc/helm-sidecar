@@ -12,11 +12,6 @@ Return the proper image name
 {{- $repositoryName := .imageRoot.repository -}}
 {{- $separator := ":" -}}
 {{- $termination := .imageRoot.tag | toString -}}
-{{- if .global }}
-    {{- if .global.imageRegistry }}
-     {{- $registryName = .global.imageRegistry -}}
-    {{- end -}}
-{{- end -}}
 {{- if .imageRoot.digest }}
     {{- $separator = "@" -}}
     {{- $termination = .imageRoot.digest | toString -}}
@@ -34,16 +29,6 @@ Return the proper Docker Image Registry Secret Names (deprecated: use common.ima
 */}}
 {{- define "common.images.pullSecrets" -}}
   {{- $pullSecrets := list }}
-
-  {{- if .global }}
-    {{- range .global.imagePullSecrets -}}
-      {{- if kindIs "map" . -}}
-        {{- $pullSecrets = append $pullSecrets .name -}}
-      {{- else -}}
-        {{- $pullSecrets = append $pullSecrets . -}}
-      {{- end }}
-    {{- end -}}
-  {{- end -}}
 
   {{- range .images -}}
     {{- range .pullSecrets -}}
