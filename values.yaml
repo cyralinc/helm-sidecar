@@ -105,21 +105,21 @@
 ## @section Prometheus metrics
 ## @param metrics.enabled Enable exposing Cyral Sidecar metrics to be gathered by Prometheus
 ## @param metrics.podAnnotations [object] Annotations for enabling prometheus to access the metrics endpoint
-## @param metrics.serviceMonitor.enabled Create ServiceMonitor Resource for scraping metrics using PrometheusOperator
-## @param metrics.serviceMonitor.namespace Specify the namespace in which the serviceMonitor resource will be created
-## @param metrics.serviceMonitor.interval Specify the interval at which metrics should be scraped
-## @param metrics.serviceMonitor.scrapeTimeout Specify the timeout after which the scrape is ended
-## @param metrics.serviceMonitor.jobLabel The name of the label on the target service to use as the job name in Prometheus
-## @param metrics.serviceMonitor.relabelings RelabelConfigs to apply to samples before scraping
-## @param metrics.serviceMonitor.metricRelabelings MetricsRelabelConfigs to apply to samples before ingestion
-## @param metrics.serviceMonitor.honorLabels honorLabels chooses the metric's labels on collisions with target labels
-## @param metrics.serviceMonitor.targetLabels Used to keep given service's labels in target
-## @param metrics.serviceMonitor.podTargetLabels Used to keep given pod's labels in target
-## @param metrics.serviceMonitor.path Define the path used by ServiceMonitor to scrap metrics
-## @param metrics.serviceMonitor.params Define the HTTP URL parameters used by ServiceMonitor
-## @param metrics.serviceMonitor.selector ServiceMonitor selector labels
-## @param metrics.serviceMonitor.labels Extra labels for the ServiceMonitor
 ## @param metrics.serviceMonitor.annotations Extra annotations for the ServiceMonitor
+## @param metrics.serviceMonitor.enabled Create ServiceMonitor Resource for scraping metrics using PrometheusOperator
+## @param metrics.serviceMonitor.honorLabels honorLabels chooses the metric's labels on collisions with target labels
+## @param metrics.serviceMonitor.interval Specify the interval at which metrics should be scraped
+## @param metrics.serviceMonitor.jobLabel The name of the label on the target service to use as the job name in Prometheus
+## @param metrics.serviceMonitor.labels Extra labels for the ServiceMonitor
+## @param metrics.serviceMonitor.metricRelabelings MetricsRelabelConfigs to apply to samples before ingestion
+## @param metrics.serviceMonitor.namespace Specify the namespace in which the serviceMonitor resource will be created
+## @param metrics.serviceMonitor.params Define the HTTP URL parameters used by ServiceMonitor
+## @param metrics.serviceMonitor.path Define the path used by ServiceMonitor to scrap metrics
+## @param metrics.serviceMonitor.podTargetLabels Used to keep given pod's labels in target
+## @param metrics.serviceMonitor.relabelings RelabelConfigs to apply to samples before scraping
+## @param metrics.serviceMonitor.scrapeTimeout Specify the timeout after which the scrape is ended
+## @param metrics.serviceMonitor.selector ServiceMonitor selector labels
+## @param metrics.serviceMonitor.targetLabels Used to keep given service's labels in target
 
 cyral:
   sidecarId: ""
