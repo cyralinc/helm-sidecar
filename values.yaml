@@ -63,6 +63,25 @@
 ## @param containerPorts [object] Map of all ports inside Cyral Sidecar container
 ## @param extraContainerPorts Array of additional container ports for the Cyral Sidecar container
 
+## @section Prometheus metrics
+## @param metrics.enabled Enable exposing Cyral Sidecar metrics to be gathered by Prometheus
+## @param metrics.podAnnotations [object] Annotations for enabling prometheus to access the metrics endpoint
+## @param metrics.serviceMonitor.annotations Extra annotations for the ServiceMonitor
+## @param metrics.serviceMonitor.enabled Create ServiceMonitor Resource for scraping metrics using PrometheusOperator
+## @param metrics.serviceMonitor.honorLabels honorLabels chooses the metric's labels on collisions with target labels
+## @param metrics.serviceMonitor.interval Specify the interval at which metrics should be scraped
+## @param metrics.serviceMonitor.jobLabel The name of the label on the target service to use as the job name in Prometheus
+## @param metrics.serviceMonitor.labels Extra labels for the ServiceMonitor
+## @param metrics.serviceMonitor.metricRelabelings MetricsRelabelConfigs to apply to samples before ingestion
+## @param metrics.serviceMonitor.namespace Specify the namespace in which the serviceMonitor resource will be created
+## @param metrics.serviceMonitor.params Define the HTTP URL parameters used by ServiceMonitor
+## @param metrics.serviceMonitor.path Define the path used by ServiceMonitor to scrap metrics
+## @param metrics.serviceMonitor.podTargetLabels Used to keep given pod's labels in target
+## @param metrics.serviceMonitor.relabelings RelabelConfigs to apply to samples before scraping
+## @param metrics.serviceMonitor.scrapeTimeout Specify the timeout after which the scrape is ended
+## @param metrics.serviceMonitor.selector ServiceMonitor selector labels
+## @param metrics.serviceMonitor.targetLabels Used to keep given service's labels in target
+
 ## @section RBAC configuration
 ## @param rbac.create Create Role and RoleBinding
 ## @param rbac.rules Custom RBAC rules to set
@@ -347,3 +366,49 @@ service:
   annotations: {}
   ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
   externalTrafficPolicy: Cluster
+
+## Prometheus Metrics
+##
+metrics:
+  enabled: false
+  ## Prometheus pod annotations
+  ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+  ##
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "{{ .Values.service.ports.metrics }}"
+  ## Prometheus Service Monitor
+  ## ref: https://github.com/coreos/prometheus-operator
+  ##
+  serviceMonitor:
+    enabled: false
+    namespace: ""
+    interval: 30s
+    ## e.g:
+    ## scrapeTimeout: 30s
+    ##
+    scrapeTimeout: ""
+    jobLabel: ""
+    relabelings: []
+    metricRelabelings: []
+    honorLabels: false
+    ## e.g:
+    ## - app.kubernetes.io/name
+    ##
+    targetLabels: {}
+    ## e.g:
+    ## - app.kubernetes.io/name
+    ##
+    podTargetLabels: {}
+    ## Could be /metrics for aggregated metrics or /metrics/per-object for more details
+    ##
+    path: ""
+    params: {}
+    ## ref: https://github.com/bitnami/charts/tree/main/bitnami/prometheus-operator#prometheus-configuration
+    ##
+    ## selector:
+    ##   prometheus: my-prometheus
+    ##
+    selector: {}
+    labels: {}
+    annotations: {}

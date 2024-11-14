@@ -24,6 +24,9 @@ spec:
         {{- if .Values.podAnnotations }}
         {{- include "common.tplvalues.render" ( dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
         {{- end }}
+        {{- if and .Values.metrics.enabled .Values.metrics.podAnnotations }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.metrics.podAnnotations "context" $) | nindent 8 }}
+        {{- end }}
     spec:
       {{- include "cyral.imagePullSecrets" . | nindent 6 }}
       serviceAccountName: {{ template "cyral.serviceAccountName" . }}
