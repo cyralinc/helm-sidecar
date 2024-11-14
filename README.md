@@ -139,6 +139,28 @@ following topics:
 | `containerPorts`      | Map of all ports inside Cyral Sidecar container                     | `{}`  |
 | `extraContainerPorts` | Array of additional container ports for the Cyral Sidecar container | `[]`  |
 
+### Prometheus metrics
+
+| Name                                       | Description                                                                      | Value   |
+| ------------------------------------------ | -------------------------------------------------------------------------------- | ------- |
+| `metrics.enabled`                          | Enable exposing Cyral Sidecar metrics to be gathered by Prometheus               | `false` |
+| `metrics.podAnnotations`                   | Annotations for enabling prometheus to access the metrics endpoint               | `{}`    |
+| `metrics.serviceMonitor.annotations`       | Extra annotations for the ServiceMonitor                                         | `{}`    |
+| `metrics.serviceMonitor.enabled`           | Create ServiceMonitor Resource for scraping metrics using PrometheusOperator     | `false` |
+| `metrics.serviceMonitor.honorLabels`       | honorLabels chooses the metric's labels on collisions with target labels         | `false` |
+| `metrics.serviceMonitor.interval`          | Specify the interval at which metrics should be scraped                          | `30s`   |
+| `metrics.serviceMonitor.jobLabel`          | The name of the label on the target service to use as the job name in Prometheus | `""`    |
+| `metrics.serviceMonitor.labels`            | Extra labels for the ServiceMonitor                                              | `{}`    |
+| `metrics.serviceMonitor.metricRelabelings` | MetricsRelabelConfigs to apply to samples before ingestion                       | `[]`    |
+| `metrics.serviceMonitor.namespace`         | Specify the namespace in which the serviceMonitor resource will be created       | `""`    |
+| `metrics.serviceMonitor.params`            | Define the HTTP URL parameters used by ServiceMonitor                            | `{}`    |
+| `metrics.serviceMonitor.path`              | Define the path used by ServiceMonitor to scrap metrics                          | `""`    |
+| `metrics.serviceMonitor.podTargetLabels`   | Used to keep given pod's labels in target                                        | `{}`    |
+| `metrics.serviceMonitor.relabelings`       | RelabelConfigs to apply to samples before scraping                               | `[]`    |
+| `metrics.serviceMonitor.scrapeTimeout`     | Specify the timeout after which the scrape is ended                              | `""`    |
+| `metrics.serviceMonitor.selector`          | ServiceMonitor selector labels                                                   | `{}`    |
+| `metrics.serviceMonitor.targetLabels`      | Used to keep given service's labels in target                                    | `{}`    |
+
 ### RBAC configuration
 
 | Name          | Description                 | Value  |
@@ -189,25 +211,3 @@ following topics:
 | `service.sessionAffinityConfig`    | Additional settings for the sessionAffinity                                                 | `{}`           |
 | `service.targetPort`               | Target port reference value for the Loadbalancer service types can be specified explicitly. | `{}`           |
 | `service.type`                     | Service type                                                                                | `LoadBalancer` |
-
-### Prometheus metrics
-
-| Name                                       | Description                                                                      | Value   |
-| ------------------------------------------ | -------------------------------------------------------------------------------- | ------- |
-| `metrics.enabled`                          | Enable exposing Cyral Sidecar metrics to be gathered by Prometheus               | `false` |
-| `metrics.podAnnotations`                   | Annotations for enabling prometheus to access the metrics endpoint               | `{}`    |
-| `metrics.serviceMonitor.annotations`       | Extra annotations for the ServiceMonitor                                         | `{}`    |
-| `metrics.serviceMonitor.enabled`           | Create ServiceMonitor Resource for scraping metrics using PrometheusOperator     | `false` |
-| `metrics.serviceMonitor.honorLabels`       | honorLabels chooses the metric's labels on collisions with target labels         | `false` |
-| `metrics.serviceMonitor.interval`          | Specify the interval at which metrics should be scraped                          | `30s`   |
-| `metrics.serviceMonitor.jobLabel`          | The name of the label on the target service to use as the job name in Prometheus | `""`    |
-| `metrics.serviceMonitor.labels`            | Extra labels for the ServiceMonitor                                              | `{}`    |
-| `metrics.serviceMonitor.metricRelabelings` | MetricsRelabelConfigs to apply to samples before ingestion                       | `[]`    |
-| `metrics.serviceMonitor.namespace`         | Specify the namespace in which the serviceMonitor resource will be created       | `""`    |
-| `metrics.serviceMonitor.params`            | Define the HTTP URL parameters used by ServiceMonitor                            | `{}`    |
-| `metrics.serviceMonitor.path`              | Define the path used by ServiceMonitor to scrap metrics                          | `""`    |
-| `metrics.serviceMonitor.podTargetLabels`   | Used to keep given pod's labels in target                                        | `{}`    |
-| `metrics.serviceMonitor.relabelings`       | RelabelConfigs to apply to samples before scraping                               | `[]`    |
-| `metrics.serviceMonitor.scrapeTimeout`     | Specify the timeout after which the scrape is ended                              | `""`    |
-| `metrics.serviceMonitor.selector`          | ServiceMonitor selector labels                                                   | `{}`    |
-| `metrics.serviceMonitor.targetLabels`      | Used to keep given service's labels in target                                    | `{}`    |
