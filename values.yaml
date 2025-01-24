@@ -189,6 +189,11 @@ extraEnvVarsCM: ""
 extraEnvVarsSecret: ""
 
 replicaCount: 1
+## ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+##
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate: {}
 ## Example:
 ## resources:
 ##   requests:
