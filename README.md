@@ -104,22 +104,23 @@ following topics:
 
 ### Deployment configuration
 
-| Name                        | Description                                                                                                                      | Value  |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| `affinity`                  | Affinity for pod assignment                                                                                                      | `{}`   |
-| `extraEnvVars`              | Extra environment variables to be set on Cyral Sidecar containers                                                                | `[]`   |
-| `extraEnvVarsCM`            | ConfigMap with extra environment variables                                                                                       | `""`   |
-| `extraEnvVarsSecret`        | Secret with extra environment variables                                                                                          | `""`   |
-| `extraVolumes`              | Array of extra volumes to be added to the Cyral Sidecar deployment (evaluated as template). Requires setting `extraVolumeMounts` | `[]`   |
-| `nodeAffinityPreset.key`    | Node label key to match Ignored if `affinity` is set.                                                                            | `""`   |
-| `nodeAffinityPreset.type`   | Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                        | `""`   |
-| `nodeAffinityPreset.values` | Node label values to match. Ignored if `affinity` is set.                                                                        | `[]`   |
-| `nodeSelector`              | Node labels for pod assignment. Evaluated as a template.                                                                         | `{}`   |
-| `podAffinityPreset`         | Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                              | `""`   |
-| `podAntiAffinityPreset`     | Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                         | `hard` |
-| `replicaCount`              | Number of Cyral Sidecar replicas to deploy                                                                                       | `1`    |
-| `resources`                 | Set container requests and limits for different resources like CPU or memory (essential for production workloads)                | `{}`   |
-| `tolerations`               | Tolerations for pod assignment. Evaluated as a template.                                                                         | `[]`   |
+| Name                           | Description                                                                                                                      | Value  |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| `affinity`                     | Affinity for pod assignment                                                                                                      | `{}`   |
+| `extraEnvVars`                 | Extra environment variables to be set on Cyral Sidecar containers                                                                | `[]`   |
+| `extraEnvVarsCM`               | ConfigMap with extra environment variables                                                                                       | `""`   |
+| `extraEnvVarsSecret`           | Secret with extra environment variables                                                                                          | `""`   |
+| `extraVolumes`                 | Array of extra volumes to be added to the Cyral Sidecar deployment (evaluated as template). Requires setting `extraVolumeMounts` | `[]`   |
+| `nodeAffinityPreset.key`       | Node label key to match Ignored if `affinity` is set.                                                                            | `""`   |
+| `nodeAffinityPreset.type`      | Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                        | `""`   |
+| `nodeAffinityPreset.values`    | Node label values to match. Ignored if `affinity` is set.                                                                        | `[]`   |
+| `nodeSelector`                 | Node labels for pod assignment. Evaluated as a template.                                                                         | `{}`   |
+| `podAffinityPreset`            | Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                              | `""`   |
+| `podAntiAffinityPreset`        | Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                         | `hard` |
+| `replicaCount`                 | Number of Cyral Sidecar replicas to deploy                                                                                       | `1`    |
+| `resources`                    | Set container requests and limits for different resources like CPU or memory (essential for production workloads)                | `{}`   |
+| `tolerations`                  | Tolerations for pod assignment. Evaluated as a template.                                                                         | `[]`   |
+| `updateStrategy.rollingUpdate` | Deployment rolling update configuration parameters.                                                                              | `{}`   |
 
 ### Image configuration
 
