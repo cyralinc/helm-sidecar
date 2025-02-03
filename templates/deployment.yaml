@@ -65,6 +65,10 @@ spec:
           emptyDir: {}
         - name: cyral-sidecar-ca-bundles
           emptyDir: {}
+        - name: cpu-check-script
+          configMap:
+            name: {{ include "common.names.fullname" . }}-cpu-check
+            defaultMode: 0755
       initContainers:
         - name: init-sidecar
           image: {{ include "cyral.image" . }}
@@ -90,6 +94,17 @@ spec:
         - name: cyral-sidecar
           image: {{ include "cyral.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          {{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            exec:
+              command:
+                - /scripts/check-cpu.sh
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.readinessProbe.failureThreshold }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+            successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          {{- end }}
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
           {{- end }}
@@ -151,6 +166,18 @@ spec:
               value: {{ .Values.cyral.sidecar.snowflake.sidecarIdpCertificate | default "" }}
             - name: CYRAL_SIDECAR_IDP_PRIVATE_KEY
               value: {{ .Values.cyral.sidecar.snowflake.sidecarIdpPrivateKey | default "" }}
+            - name: CPU_LIMIT
+              valueFrom:
+                resourceFieldRef:
+                  containerName: cyral-sidecar
+                  divisor: 1m
+                  resource: limits.cpu
+            - name: CPU_REQUEST
+              valueFrom:
+                resourceFieldRef:
+                  containerName: cyral-sidecar
+                  divisor: 1m
+                  resource: requests.cpu
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
@@ -187,6 +214,8 @@ spec:
               mountPath: /etc/nginx
             - name: cyral-sidecar-ca-bundles
               mountPath: /etc/cyral/cyral-certificate-manager/bundles
+            - name: cpu-check-script
+              mountPath: /scripts
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
