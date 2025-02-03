@@ -1,0 +1,78 @@
+{{- /*
+Copyright Cyral, Inc.
+SPDX-License-Identifier: APACHE-2.0
+*/}}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.names.fullname" . }}-cpu-check
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 4 }}
+data:
+  check-cpu.sh: |
+    #!/bin/sh
+
+    # Get number of CPU cores
+    NUM_CORES=$(nproc)
+
+    # Get CPU request or limit from environment, treat 0 as unset
+    CPU_REQUEST=${CPU_REQUEST:-${CPU_LIMIT}}
+    if [ -z "$CPU_REQUEST" ] || [ "$CPU_REQUEST" -eq 0 ]; then
+      echo "Neither CPU_REQUEST nor CPU_LIMIT environment variables are set to a valid value"
+      exit 0
+    fi
+
+    # Get CPU stats from /proc/stat
+    CPU_LINE=$(grep '^cpu ' /proc/stat)
+    user=$(echo "$CPU_LINE" | awk '{print $2}')
+    nice=$(echo "$CPU_LINE" | awk '{print $3}')
+    system=$(echo "$CPU_LINE" | awk '{print $4}')
+    idle=$(echo "$CPU_LINE" | awk '{print $5}')
+    iowait=$(echo "$CPU_LINE" | awk '{print $6}')
+    irq=$(echo "$CPU_LINE" | awk '{print $7}')
+    softirq=$(echo "$CPU_LINE" | awk '{print $8}')
+    steal=$(echo "$CPU_LINE" | awk '{print $9}')
+
+    total_cpu_time=$((user + nice + system + idle + iowait + irq + softirq + steal))
+    idle_cpu_time=$((idle + iowait))
+
+    # Sleep for a second to get delta
+    sleep 1
+
+    # Get CPU stats again
+    CPU_LINE=$(grep '^cpu ' /proc/stat)
+    user_new=$(echo "$CPU_LINE" | awk '{print $2}')
+    nice_new=$(echo "$CPU_LINE" | awk '{print $3}')
+    system_new=$(echo "$CPU_LINE" | awk '{print $4}')
+    idle_new=$(echo "$CPU_LINE" | awk '{print $5}')
+    iowait_new=$(echo "$CPU_LINE" | awk '{print $6}')
+    irq_new=$(echo "$CPU_LINE" | awk '{print $7}')
+    softirq_new=$(echo "$CPU_LINE" | awk '{print $8}')
+    steal_new=$(echo "$CPU_LINE" | awk '{print $9}')
+
+    total_cpu_time_new=$((user_new + nice_new + system_new + idle_new + iowait_new + irq_new + softirq_new + steal_new))
+    idle_cpu_time_new=$((idle_new + iowait_new))
+
+    # Calculate CPU usage percentage across all cores
+    total_delta=$((total_cpu_time_new - total_cpu_time))
+    idle_delta=$((idle_cpu_time_new - idle_cpu_time))
+    CPU_USAGE=$(( 100 * (total_delta - idle_delta) / total_delta ))
+
+    # Calculate total available millicores across all cores
+    TOTAL_MILLICORES=$((NUM_CORES * 1000))
+
+    # Convert CPU usage to millicores (considering all cores)
+    CPU_USAGE_MILLI=$(( CPU_USAGE * TOTAL_MILLICORES / 100 ))
+
+    # Calculate 80% of the CPU request as threshold
+    CPU_THRESHOLD=$(( CPU_REQUEST * 80 / 100 ))
+
+    # Compare CPU usage with threshold
+    if [ "$CPU_USAGE_MILLI" -gt "$CPU_THRESHOLD" ]; then
+      echo "CPU usage (${CPU_USAGE_MILLI}m) is above 80% of request (${CPU_THRESHOLD}m) across ${NUM_CORES} cores"
+      exit 1
+    fi
+
+    echo "CPU usage (${CPU_USAGE_MILLI}m) is below threshold (${CPU_THRESHOLD}m) across ${NUM_CORES} cores"
+    exit 0 
