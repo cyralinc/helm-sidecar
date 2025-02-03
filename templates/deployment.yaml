@@ -149,6 +149,18 @@ spec:
               value: {{ .Values.cyral.sidecar.snowflake.sidecarIdpCertificate | default "" }}
             - name: CYRAL_SIDECAR_IDP_PRIVATE_KEY
               value: {{ .Values.cyral.sidecar.snowflake.sidecarIdpPrivateKey | default "" }}
+            - name: CPU_LIMIT
+              valueFrom:
+                resourceFieldRef:
+                  containerName: cyral-sidecar
+                  divisor: 1m
+                  resource: limits.cpu
+            - name: CPU_REQUEST
+              valueFrom:
+                resourceFieldRef:
+                  containerName: cyral-sidecar
+                  divisor: 1m
+                  resource: requests.cpu
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
