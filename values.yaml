@@ -194,6 +194,19 @@ replicaCount: 1
 updateStrategy:
   type: RollingUpdate
   rollingUpdate: {}
+## Autoscaling parameters
+## @param autoscaling.enabled Enable autoscaling for NGINX deployment
+## @param autoscaling.minReplicas Minimum number of replicas to scale back
+## @param autoscaling.maxReplicas Maximum number of replicas to scale out
+## @param autoscaling.targetCPU Target CPU utilization percentage
+## @param autoscaling.targetMemory Target Memory utilization percentage
+##
+autoscaling:
+  enabled: false
+  minReplicas: "2"
+  maxReplicas: ""
+  targetCPU: ""
+  targetMemory: ""
 ## Example:
 ## resources:
 ##   requests:
