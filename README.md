@@ -121,6 +121,7 @@ following topics:
 | `resources`                    | Set container requests and limits for different resources like CPU or memory (essential for production workloads)                | `{}`   |
 | `tolerations`                  | Tolerations for pod assignment. Evaluated as a template.                                                                         | `[]`   |
 | `updateStrategy.rollingUpdate` | Deployment rolling update configuration parameters.                                                                              | `{}`   |
+| `extraContainers`              | Array of additional containers to be added to the deployment pod.                                                                | `[]`   |
 
 ### Image configuration
 
