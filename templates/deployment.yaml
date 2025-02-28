@@ -219,3 +219,6 @@ spec:
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
+        {{- if .Values.extraContainers }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.extraContainers "context" $) | nindent 8 }}
+        {{- end }}

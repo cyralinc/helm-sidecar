@@ -111,6 +111,7 @@ following topics:
 | `extraEnvVarsCM`               | ConfigMap with extra environment variables                                                                                       | `""`   |
 | `extraEnvVarsSecret`           | Secret with extra environment variables                                                                                          | `""`   |
 | `extraVolumes`                 | Array of extra volumes to be added to the Cyral Sidecar deployment (evaluated as template). Requires setting `extraVolumeMounts` | `[]`   |
+| `extraContainers`              | Array of additional containers to be added to the deployment pod.                                                                | `[]`   |
 | `nodeAffinityPreset.key`       | Node label key to match Ignored if `affinity` is set.                                                                            | `""`   |
 | `nodeAffinityPreset.type`      | Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                        | `""`   |
 | `nodeAffinityPreset.values`    | Node label values to match. Ignored if `affinity` is set.                                                                        | `[]`   |
