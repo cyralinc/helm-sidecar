@@ -74,14 +74,3 @@ Get Cyral Sidecar CA cert secret
     {{- tpl .Values.cyral.sidecar.certificates.ca.existingSecret $ -}}
 {{- end -}}
 {{- end -}}
-
-{{/*
-Get the DNS name to access Cyral Sidecar
-*/}}
-{{- define "cyral.dnsName" -}}
-{{- if .Values.cyral.sidecar.dnsName -}}
-    {{- tpl .Values.cyral.sidecar.dnsName $ -}}
-{{- else -}}
-    {{- include "common.names.fullname" . }}.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain -}}
-{{- end -}}
-{{- end -}}

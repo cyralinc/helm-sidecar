@@ -9,6 +9,10 @@ APP VERSION: {{ .Chart.AppVersion }}
 
 ** Please be patient while the chart is being deployed **
 
-Cyral Sidecar can be accessed through the following DNS name from within your cluster:
+Cyral Sidecar can be accessed:
+
+  * From within your cluster using the internal service DNS name:
 
     {{ include "common.names.fullname" . }}.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}
+
+  * From outside your cluster using the external IP address of the load balancer (if configured)
