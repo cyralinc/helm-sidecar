@@ -89,7 +89,7 @@ following topics:
 | Name                               | Description                                                                                                                                   | Value |
 | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
 | `cyral.credentials.existingSecret` | Name of an existing Kubernetes secret containing client ID and client secret. The secret must contain the `clientId` and `clientSecret` keys. | `""`  |
-| `cyral.sidecar.dnsName`            | [DEPRECATED] Fully qualified domain name that will be used to access the Cyral Sidecar. Use `cyral.deploymentProperties.endpoint` instead.    | `""`  |
+| `cyral.sidecar.dnsName`            | (DEPRECATED) Fully qualified domain name that will be used to access the Cyral Sidecar. Use `cyral.deploymentProperties.endpoint` instead.    | `""`  |
 
 ### Common configuration
 
@@ -104,24 +104,24 @@ following topics:
 
 ### Deployment configuration
 
-| Name                           | Description                                                                                                                      | Value  |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| `affinity`                     | Affinity for pod assignment                                                                                                      | `{}`   |
-| `extraEnvVars`                 | Extra environment variables to be set on Cyral Sidecar containers                                                                | `[]`   |
-| `extraEnvVarsCM`               | ConfigMap with extra environment variables                                                                                       | `""`   |
-| `extraEnvVarsSecret`           | Secret with extra environment variables                                                                                          | `""`   |
-| `extraVolumes`                 | Array of extra volumes to be added to the Cyral Sidecar deployment (evaluated as template). Requires setting `extraVolumeMounts` | `[]`   |
-| `extraContainers`              | Array of additional containers to be added to the deployment pod.                                                                | `[]`   |
-| `nodeAffinityPreset.key`       | Node label key to match Ignored if `affinity` is set.                                                                            | `""`   |
-| `nodeAffinityPreset.type`      | Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                        | `""`   |
-| `nodeAffinityPreset.values`    | Node label values to match. Ignored if `affinity` is set.                                                                        | `[]`   |
-| `nodeSelector`                 | Node labels for pod assignment. Evaluated as a template.                                                                         | `{}`   |
-| `podAffinityPreset`            | Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                              | `""`   |
-| `podAntiAffinityPreset`        | Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                         | `hard` |
-| `replicaCount`                 | Number of Cyral Sidecar replicas to deploy                                                                                       | `1`    |
-| `resources`                    | Set container requests and limits for different resources like CPU or memory (essential for production workloads)                | `{}`   |
-| `tolerations`                  | Tolerations for pod assignment. Evaluated as a template.                                                                         | `[]`   |
-| `updateStrategy.rollingUpdate` | Deployment rolling update configuration parameters.                                                                              | `{}`   |
+| Name                           | Description                                                                                                                      | Value           |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `affinity`                     | Affinity for pod assignment                                                                                                      | `{}`            |
+| `extraEnvVars`                 | Extra environment variables to be set on Cyral Sidecar containers                                                                | `[]`            |
+| `extraEnvVarsCM`               | ConfigMap with extra environment variables                                                                                       | `""`            |
+| `extraEnvVarsSecret`           | Secret with extra environment variables                                                                                          | `""`            |
+| `extraVolumes`                 | Array of extra volumes to be added to the Cyral Sidecar deployment (evaluated as template). Requires setting `extraVolumeMounts` | `[]`            |
+| `nodeAffinityPreset.key`       | Node label key to match Ignored if `affinity` is set.                                                                            | `""`            |
+| `nodeAffinityPreset.type`      | Node affinity preset type. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                        | `""`            |
+| `nodeAffinityPreset.values`    | Node label values to match. Ignored if `affinity` is set.                                                                        | `[]`            |
+| `nodeSelector`                 | Node labels for pod assignment. Evaluated as a template.                                                                         | `{}`            |
+| `podAffinityPreset`            | Pod affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                              | `""`            |
+| `podAntiAffinityPreset`        | Pod anti-affinity preset. Ignored if `affinity` is set. Allowed values: `soft` or `hard`                                         | `hard`          |
+| `replicaCount`                 | Number of Cyral Sidecar replicas to deploy                                                                                       | `1`             |
+| `resources`                    | Set container requests and limits for different resources like CPU or memory (essential for production workloads)                | `{}`            |
+| `tolerations`                  | Tolerations for pod assignment. Evaluated as a template.                                                                         | `[]`            |
+| `updateStrategy.type`          | Cyral Sidecar deployment strategy type                                                                                           | `RollingUpdate` |
+| `updateStrategy.rollingUpdate` | Cyral Sidecar deployment rolling update configuration parameters                                                                 | `{}`            |
 
 ### Image configuration
 
@@ -199,17 +199,28 @@ following topics:
 
 ### Service configuration
 
-| Name                               | Description                                                                                 | Value          |
-| ---------------------------------- | ------------------------------------------------------------------------------------------- | -------------- |
-| `service.annotations`              | Service annotations                                                                         | `{}`           |
-| `service.clusterIP`                | Cyral Sidecar service Cluster IP                                                            | `""`           |
-| `service.externalTrafficPolicy`    | Enable client source IP preservation                                                        | `Cluster`      |
-| `service.loadBalancerClass`        | service Load Balancer class if service type is `LoadBalancer` (optional, cloud specific)    | `""`           |
-| `service.loadBalancerIP`           | LoadBalancer service IP address                                                             | `""`           |
-| `service.loadBalancerSourceRanges` | Cyral Sidecar service Load Balancer sources                                                 | `[]`           |
-| `service.nodePorts`                | Specify the nodePort(s) value(s) for the LoadBalancer and NodePort service types.           | `{}`           |
-| `service.ports`                    | Map of Cyral Sidecar service ports                                                          | `{}`           |
-| `service.sessionAffinity`          | Session Affinity for Kubernetes service, can be "None" or "ClientIP"                        | `None`         |
-| `service.sessionAffinityConfig`    | Additional settings for the sessionAffinity                                                 | `{}`           |
-| `service.targetPort`               | Target port reference value for the Loadbalancer service types can be specified explicitly. | `{}`           |
-| `service.type`                     | Service type                                                                                | `LoadBalancer` |
+| Name                                 | Description                                                                                 | Value          |
+| ------------------------------------ | ------------------------------------------------------------------------------------------- | -------------- |
+| `service.annotations`                | Service annotations                                                                         | `{}`           |
+| `service.clusterIP`                  | Cyral Sidecar service Cluster IP                                                            | `""`           |
+| `service.externalTrafficPolicy`      | Enable client source IP preservation                                                        | `Cluster`      |
+| `service.loadBalancerClass`          | service Load Balancer class if service type is `LoadBalancer` (optional, cloud specific)    | `""`           |
+| `service.loadBalancerIP`             | LoadBalancer service IP address                                                             | `""`           |
+| `service.loadBalancerSourceRanges`   | Cyral Sidecar service Load Balancer sources                                                 | `[]`           |
+| `service.nodePorts`                  | Specify the nodePort(s) value(s) for the LoadBalancer and NodePort service types.           | `{}`           |
+| `service.ports`                      | Map of Cyral Sidecar service ports                                                          | `{}`           |
+| `service.sessionAffinity`            | Session Affinity for Kubernetes service, can be "None" or "ClientIP"                        | `None`         |
+| `service.sessionAffinityConfig`      | Additional settings for the sessionAffinity                                                 | `{}`           |
+| `service.targetPort`                 | Target port reference value for the Loadbalancer service types can be specified explicitly. | `{}`           |
+| `service.type`                       | Service type                                                                                | `LoadBalancer` |
+| `autoscaling.enabled`                | Enable autoscaling for NGINX deployment                                                     | `false`        |
+| `autoscaling.minReplicas`            | Minimum number of replicas to scale back                                                    | `2`            |
+| `autoscaling.maxReplicas`            | Maximum number of replicas to scale out                                                     | `""`           |
+| `autoscaling.targetCPU`              | Target CPU utilization percentage                                                           | `""`           |
+| `autoscaling.targetMemory`           | Target Memory utilization percentage                                                        | `""`           |
+| `readinessProbe.enabled`             | Enable readinessProbe                                                                       | `false`        |
+| `readinessProbe.initialDelaySeconds` | Initial delay seconds for readinessProbe                                                    | `5`            |
+| `readinessProbe.periodSeconds`       | Period seconds for readinessProbe                                                           | `5`            |
+| `readinessProbe.timeoutSeconds`      | Timeout seconds for readinessProbe                                                          | `3`            |
+| `readinessProbe.failureThreshold`    | Failure threshold for readinessProbe                                                        | `3`            |
+| `readinessProbe.successThreshold`    | Success threshold for readinessProbe                                                        | `1`            |
