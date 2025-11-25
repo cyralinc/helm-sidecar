@@ -74,3 +74,15 @@ Get Cyral Sidecar CA cert secret
     {{- tpl .Values.cyral.sidecar.certificates.ca.existingSecret $ -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Get the DNS name to access Cyral Sidecar
+Prefers cyral.deploymentProperties.endpoint over cyral.sidecar.dnsName for backward compatibility
+*/}}
+{{- define "cyral.dnsName" -}}
+{{- if .Values.cyral.deploymentProperties.endpoint -}}
+    {{- tpl .Values.cyral.deploymentProperties.endpoint $ -}}
+{{- else if .Values.cyral.sidecar.dnsName -}}
+    {{- tpl .Values.cyral.sidecar.dnsName $ -}}
+{{- end -}}
+{{- end -}}

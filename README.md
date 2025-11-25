@@ -89,6 +89,7 @@ following topics:
 | Name                               | Description                                                                                                                                   | Value |
 | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
 | `cyral.credentials.existingSecret` | Name of an existing Kubernetes secret containing client ID and client secret. The secret must contain the `clientId` and `clientSecret` keys. | `""`  |
+| `cyral.sidecar.dnsName`            | [DEPRECATED] Fully qualified domain name that will be used to access the Cyral Sidecar. Use `cyral.deploymentProperties.endpoint` instead.    | `""`  |
 
 ### Common configuration
 

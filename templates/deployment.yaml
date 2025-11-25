@@ -127,7 +127,7 @@ spec:
             - name: CYRAL_SIDECAR_ID
               value: {{ .Values.cyral.sidecarId | required "cyral.sidecarId is required" }}
             - name: CYRAL_SIDECAR_ENDPOINT
-              value: {{ .Values.cyral.deploymentProperties.endpoint | quote }}
+              value: {{ include "cyral.dnsName" $ | quote }}
             - name: CYRAL_SIDECAR_CLIENT_ID
               valueFrom:
                 secretKeyRef:

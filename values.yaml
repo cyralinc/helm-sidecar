@@ -25,6 +25,7 @@
 
 ## @section Other Cyral configuration
 ## @param cyral.credentials.existingSecret Name of an existing Kubernetes secret containing client ID and client secret. The secret must contain the `clientId` and `clientSecret` keys.
+## @param cyral.sidecar.dnsName [DEPRECATED] Fully qualified domain name that will be used to access the Cyral Sidecar. Use `cyral.deploymentProperties.endpoint` instead.
 
 ## @section Common configuration
 ## @param commonAnnotations Common annotations to add to all Cyral Sidecar resources (sub-charts are not considered). Evaluated as a template
@@ -130,6 +131,8 @@ cyral:
     existingSecret: ""
 
   sidecar:
+    dnsName: ""
+
     certificates:
       ca:
         existingSecret: ""
