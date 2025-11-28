@@ -25,7 +25,7 @@
 
 ## @section Other Cyral configuration
 ## @param cyral.credentials.existingSecret Name of an existing Kubernetes secret containing client ID and client secret. The secret must contain the `clientId` and `clientSecret` keys.
-## @param cyral.sidecar.dnsName Fully qualified domain name that will be used to access the Cyral Sidecar
+## @param cyral.sidecar.dnsName (DEPRECATED) Fully qualified domain name that will be used to access the Cyral Sidecar. Use `cyral.deploymentProperties.endpoint` instead.
 
 ## @section Common configuration
 ## @param commonAnnotations Common annotations to add to all Cyral Sidecar resources (sub-charts are not considered). Evaluated as a template
@@ -50,6 +50,8 @@
 ## @param replicaCount Number of Cyral Sidecar replicas to deploy
 ## @param resources Set container requests and limits for different resources like CPU or memory (essential for production workloads)
 ## @param tolerations Tolerations for pod assignment. Evaluated as a template.
+## @param updateStrategy.type Cyral Sidecar deployment strategy type
+## @param updateStrategy.rollingUpdate Cyral Sidecar deployment rolling update configuration parameters
 
 ## @section Image configuration
 ## @param image.debug Enable image debug mode

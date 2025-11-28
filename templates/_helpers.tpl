@@ -77,11 +77,12 @@ Get Cyral Sidecar CA cert secret
 
 {{/*
 Get the DNS name to access Cyral Sidecar
+Prefers cyral.deploymentProperties.endpoint over cyral.sidecar.dnsName for backward compatibility
 */}}
 {{- define "cyral.dnsName" -}}
-{{- if .Values.cyral.sidecar.dnsName -}}
+{{- if .Values.cyral.deploymentProperties.endpoint -}}
+    {{- tpl .Values.cyral.deploymentProperties.endpoint $ -}}
+{{- else if .Values.cyral.sidecar.dnsName -}}
     {{- tpl .Values.cyral.sidecar.dnsName $ -}}
-{{- else -}}
-    {{- include "common.names.fullname" . }}.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain -}}
 {{- end -}}
 {{- end -}}
