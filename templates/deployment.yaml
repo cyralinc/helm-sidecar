@@ -57,12 +57,6 @@ spec:
           emptyDir: {}
         - name: cyral-sidecar-fluentbit
           emptyDir: {}
-        - name: cyral-sidecar-openresty
-          emptyDir: {}
-        - name: cyral-sidecar-openresty-local
-          emptyDir: {}
-        - name: cyral-sidecar-nginx
-          emptyDir: {}
         - name: cyral-sidecar-ca-bundles
           emptyDir: {}
         - name: cpu-check-script
@@ -78,18 +72,12 @@ spec:
               mountPath: /supervisor-temp
             - name: cyral-sidecar-fluentbit
               mountPath: /fluentbit-temp
-            - name: cyral-sidecar-openresty-local
-              mountPath: /openresty-temp
-            - name: cyral-sidecar-nginx
-              mountPath: /nginx-temp
           command:
             - "sh"
             - "-c"
             - |
               cp -R /etc/supervisor/. /supervisor-temp &&
-              cp -R /etc/fluent-bit/. /fluentbit-temp &&
-              cp -R /usr/local/openresty/. /openresty-temp &&
-              cp -R /etc/nginx/. /nginx-temp
+              cp -R /etc/fluent-bit/. /fluentbit-temp
       containers:
         - name: cyral-sidecar
           image: {{ include "cyral.image" . }}
@@ -158,14 +146,6 @@ spec:
                 secretKeyRef:
                   name: {{ include "cyral.certificates.ca.secretName" $ }}
                   key: tls.crt
-            - name: CYRAL_SSO_LOGIN_URL
-              value: {{ .Values.cyral.sidecar.snowflake.SSOLoginURL | default "" }}
-            - name: CYRAL_IDP_CERTIFICATE
-              value: {{ .Values.cyral.sidecar.snowflake.idpCertificate | default "" }}
-            - name: CYRAL_SIDECAR_IDP_PUBLIC_CERT
-              value: {{ .Values.cyral.sidecar.snowflake.sidecarIdpCertificate | default "" }}
-            - name: CYRAL_SIDECAR_IDP_PRIVATE_KEY
-              value: {{ .Values.cyral.sidecar.snowflake.sidecarIdpPrivateKey | default "" }}
             - name: CPU_LIMIT
               valueFrom:
                 resourceFieldRef:
@@ -206,12 +186,6 @@ spec:
               mountPath: /etc/supervisor
             - name: cyral-sidecar-fluentbit
               mountPath: /etc/fluent-bit
-            - name: cyral-sidecar-openresty
-              mountPath: /var/run/openresty
-            - name: cyral-sidecar-openresty-local
-              mountPath: /usr/local/openresty
-            - name: cyral-sidecar-nginx
-              mountPath: /etc/nginx
             - name: cyral-sidecar-ca-bundles
               mountPath: /etc/cyral/cyral-certificate-manager/bundles
             - name: cpu-check-script
